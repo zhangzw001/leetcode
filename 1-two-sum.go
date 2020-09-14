@@ -22,13 +22,13 @@ import "fmt"
  */
 
 
-func twoSum(nums []int, target int) []int {
+func twoSum1(nums []int, target int) []int {
 	var list []int
 	n := len(nums)
 	for i,j := range nums {
 		for m:=i+1 ; m < n;m ++ {
 			if j+nums[m] == target {
-				list = append(list, m,j)
+				list = append(list, i,m)
 				return list
 			}
 		}
@@ -36,6 +36,17 @@ func twoSum(nums []int, target int) []int {
 	return list
 }
 
+func twoSum(nums []int, target int) []int {
+	m := make(map[int]int)
+	for i := 0; i < len(nums); i++ {
+		another := target - nums[i]
+		if _, ok := m[another]; ok {
+			return []int{m[another], i}
+		}
+		m[nums[i]] = i
+	}
+	return nil
+}
 
 func main() {
 	nums1 := []int{2, 7, 11, 15}
