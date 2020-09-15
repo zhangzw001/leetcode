@@ -46,7 +46,7 @@ func singleNumber2(nums []int) int {
 }
 
 // 所有的元素异或运算之后 等于 唯一的那个数
-// 
+// (a1 ^ a1 ) ^ ( a2 ^ a2 ) ^ ... (an ^ an) ^ a(n+1) = a(n+1)
 func singleNumber(nums []int) int {
 	status := 0
 	for _, v := range nums {

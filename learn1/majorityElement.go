@@ -37,6 +37,8 @@ func majorityElement(nums []int) int {
 }
 
 func main() {
-	fmt.Println(majorityElement([]int{3}))
-	fmt.Println(majorityElement([]int{3,3,4}))
+	//fmt.Println(majorityElement([]int{3}))
+	//fmt.Println(majorityElement([]int{3,3,4}))
+	a := [][]int{{1,2},{3,4},{5,6}}
+	fmt.Println(len(a[0]))
 }
