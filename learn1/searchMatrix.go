@@ -35,7 +35,7 @@ func searchMatrix2(matrix [][]int, target int) bool {
 	if len(matrix[0]) == 0 {
 		return false
 	}
-	p1,p2 := 0, len(matrix[0])
+	p1,p2 := 0, len(matrix[0])-1
 	for p1 <=len(matrix)-1 && p2 >=0 {
 		if matrix[p1][p2] == target {
 			return true
@@ -75,8 +75,8 @@ func searchMatrix(matrix [][]int, target int) bool {
 }
 
 func main() {
-	//a := [][]int{{1,4,7,11,15},{2,5,8,12,19},{3,6,9,16,22},{10,13,14,17,24},{18,21,23,26,30}}
-	a := [][]int{{-1,3}}
+	a := [][]int{{1,4,7,11,15},{2,5,8,12,19},{3,6,9,16,22},{10,13,14,17,24},{18,21,23,26,30}}
+	//a := [][]int{{-1,3}}
 	fmt.Println(a)
 	fmt.Println(searchMatrix2(a,3))
 }
