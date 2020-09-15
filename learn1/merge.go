@@ -72,13 +72,12 @@ func merge4(nums1 []int, m int, nums2 []int, n int)  {
 }
 
 func merge2(nums1 []int, m int, nums2 []int, n int) {
-	//if m == 0 {
-	//	nums1=append(nums1[:0],nums2...)
-	//}
+	if m == 0 {
+		nums1=append(nums1[:0],nums2...)
+	}
 	left, right , p := m-1, n-1, m+n-1
-	for left >= 0 && right >= 0 {
-		fmt.Println(nums1[left],nums2[right])
-		if nums1[left] > nums2[right] {
+	for right >= 0 {
+		if left >=0 && nums1[left] > nums2[right] {
 			nums1[p] = nums1[left]
 			left --
 		}else {
@@ -87,7 +86,6 @@ func merge2(nums1 []int, m int, nums2 []int, n int) {
 		}
 		p --
 	}
-	fmt.Println(nums1)
 }
 
 func main() {
