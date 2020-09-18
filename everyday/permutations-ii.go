@@ -26,24 +26,85 @@ import (
 
 func permuteUnique(nums []int) [][]int {
 	sort.Ints(nums)
-	numsAll := [][]int{}
 	n := len(nums)
-	if len(nums) ==0 {
+	numsAll := make([][]int,0)
+	if n ==0 {
 		return numsAll
 	}
-	for i:=0; i < len(nums) ; i ++ {
-		for j:=0; j < len(nums) ; j ++ {
-			//if nums[i] == nums[j] || i == j {
-			//	continue
-			//}
+
+	var backtrack  func(pos int )
+	backtrack = func(pos int ) {
+		if pos == n-1 {
 			tmp := make([]int,n)
 			copy(tmp,nums)
-			tmp[i],tmp[j] = tmp[j],tmp[i]
 			numsAll = append(numsAll,tmp)
+			fmt.Println(tmp)
+			return
+		}
+
+		for i := pos; i < n ; i++ {
+			if pos != i && nums[pos] == nums[i] {
+				continue
+			}
+			nums[i] ,nums[pos] = nums[pos],nums[i]
+			backtrack(pos+1)
+			//nums[i] ,nums[pos] = nums[pos],nums[i]
+		}
+		for i := n - 1; i > pos; i-- {
+			nums[i] ,nums[pos] = nums[pos],nums[i]
 		}
 	}
+	backtrack(0)
 	return numsAll
 }
+
+
+
+func permuteUnique2(nums []int) [][]int {
+	if len(nums) == 0 {
+		return nil
+	}
+	result := [][]int{}
+	sort.Ints(nums)
+	helper(nums, 0, &result)
+
+	return result
+}
+
+// 回溯函数实现
+// i表示本次函数需要放置的元素位置
+func helper(nums []int, i int, result *[][]int) {
+	n := len(nums)
+	if i == n-1 {
+		tmp := make([]int, n)
+		copy(tmp, nums)
+		*result = append(*result, tmp)
+		return
+	}
+	// nums[0:i]是已经决定的部分，nums[i:]是待决定部分，同时待选元素也都在nums[i:]
+	for k := i; k < n; k++ {
+		// 跳过重复数字
+		if k != i && nums[k] == nums[i] {
+			continue
+		}
+		nums[k], nums[i] = nums[i], nums[k]
+		helper(nums, i+1, result)
+	}
+	// 还原状态
+	for k := n - 1; k > i; k-- {
+		nums[i], nums[k] = nums[k], nums[i]
+	}
+}
+
+
+
+
+
+
+
+
+
+
 
 func permute(nums []int) [][]int {
 		numsAll := make([][]int,0)
@@ -62,8 +123,8 @@ func permute(nums []int) [][]int {
 				copy(tmp,nums)
 				numsAll = append(numsAll,tmp)
 			}
-			// [0:pos] 位置已经确定, 继续填入[pos,n-1]
 			for i := pos; i < n ; i ++ {
+				// 回溯+递归
 				nums[i], nums[pos] = nums[pos], nums[i]
 				backtrack(pos + 1)
 				nums[i], nums[pos] = nums[pos], nums[i]
@@ -74,6 +135,9 @@ func permute(nums []int) [][]int {
 }
 
 func main() {
-	//fmt.Println(permuteUnique([]int{1,2,3}))
-	fmt.Println(permute([]int{1,3,4}))
+	fmt.Println(permuteUnique([]int{2,2,1,1}))
+	//fmt.Println(permuteUnique2([]int{2,2,1,1}))
+	//fmt.Println(permuteUnique([]int{1,1,3}))
+	//fmt.Println(permuteUnique([]int{1,2}))
+	//fmt.Println(permute([]int{1,3,4}))
 }
