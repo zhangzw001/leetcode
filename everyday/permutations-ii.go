@@ -22,20 +22,18 @@ import "fmt"
  */
 
 func permuteUnique(nums []int) [][]int {
-	numsAll := [][]int{}
+	numsAll := make([][]int,len(nums)* len(nums) )
 	if len(nums) ==0 {
 		return numsAll
 	}
 
 	for i:=0; i < len(nums) ; i ++ {
 		for j:=0; j < len(nums) ; j ++ {
+			numsAll[i+j] = nums
 			if i == j {
 				continue
 			}
-			tmp := nums
-			tmp[i],tmp[j] = tmp[j],tmp[i]
-			fmt.Println(tmp)
-			numsAll = append(numsAll,tmp)
+			nums[i],nums[j] = nums[j],nums[i]
 		}
 	}
 	return numsAll
